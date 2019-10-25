@@ -1,6 +1,7 @@
 
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+const logger = require('./logger');
 require('dotenv').config()
 
 const {getWeather, getLatLng} = require('./utils');
@@ -23,7 +24,7 @@ app.post('/address',[
     check('country').exists()
   ], (req, res) => {
     
-    console.log('req.body', req.body)
+    logger.info('Validating',{address})
     const { street, streetNumber, town, postalCode, country}  = req.body;
 
     const errors = validationResult(req);
@@ -41,7 +42,7 @@ app.post('/address',[
 app.get('/weather', async (req, res) =>{
 
     const { address } = req.query;
-    console.log('here', address)
+    logger.info('Getting weather',{address})
     try {
         const location = await getLatLng(address);
         const data = await getWeather(location);
@@ -65,6 +66,6 @@ app.post('/validateandweather', async (req, res) =>{
     }
 });
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  logger.info('Weather app started!');
 });
 
