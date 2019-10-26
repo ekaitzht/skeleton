@@ -1,6 +1,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const axios = require('axios');
 const logger = require('./logger');
 require('dotenv').config()
 
@@ -16,7 +17,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 
-app.post('/address',[
+app.post('/validate',[
     check('street').exists(),
     check('streetNumber').exists(),
     check('town').exists(),
@@ -24,31 +25,23 @@ app.post('/address',[
     check('country').exists()
   ], (req, res) => {
     
-    logger.info('Validating',{address})
-    const { street, streetNumber, town, postalCode, country}  = req.body;
-
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        res.json({
-            valid: false
-        })
+        res.status(400).send({ valid: false, msg: 'Invalid address', errors});
     } 
-
-    res.json({
-        valid: true
-    })
+    res.status(200).json({ valid: true, msg: 'Valid address'})
 });
 
 app.get('/weather', async (req, res) =>{
 
     const { address } = req.query;
-    logger.info('Getting weather',{address})
+    logger.info('Getting weather', address)
     try {
         const location = await getLatLng(address);
         const data = await getWeather(location);
-        res.json(data);
+        res.status(200).json(data);
     } catch (error) {
-        res.json(error);
+        res.status(500).send('Failing getting weather');
     }
 });
 
@@ -56,15 +49,20 @@ app.post('/validateandweather', async (req, res) =>{
 
     const address  = req.body
 
-    console.log('here', address)
     try {
-        const location = await axios.post('/validate',{address});
-        const data = await getWeather('/weather');
-        res.json(data);
+        const { data } = await axios.post(`http://${process.env.HOSTNAME}:${process.env.PORT}/validate`, address);
+        if ( data.valid ) {
+            const { street, streetNumber, town, postalCode, country}  = address;
+            const fullAddress = `${streetNumber} ${street},${town},${postalCode},${country}`;
+            const { data } = await axios.get(`http://${process.env.HOSTNAME}:${process.env.PORT}/weather?address=${fullAddress}`);
+            res.status(200).json(data);
+        } 
     } catch (error) {
-        res.json(error);
+        logger.error(error);
+        res.send(error);
     }
 });
+
 app.listen(3000, function () {
   logger.info('Weather app started!');
 });

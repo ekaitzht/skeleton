@@ -2,7 +2,10 @@ const axios = require('axios');
 const logger = require('./logger');
 
 getLatLng = async (address) =>{
+    console.log('perico', address)
+    
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.API_KEY}`;
+    
     try { 
         const { results } = (await axios.get(url)).data;
         const { location } = results.pop().geometry;
