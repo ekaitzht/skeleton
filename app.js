@@ -70,10 +70,7 @@ app.get("/weather", async (req, res) => {
 
 app.post("/validateandweather", async (req, res) => {
   try {
-    const { data } = await axios.post(
-      `${basePath}/validate`,
-      req.body
-    );
+    const { data } = await axios.post(`${basePath}/validate`, req.body);
 
     if (data.valid) {
       const { street, streetNumber, town, postalCode, country } = req.body;
