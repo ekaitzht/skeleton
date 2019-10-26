@@ -37,19 +37,34 @@ app.post(
   }
 );
 
-app.get("/weather", async (req, res) => {
-  const { address } = req.query;
-  logger.info("Getting weather", address);
+app.get("/geocoding", async (req, res) => {
   try {
-    const location = await getLatLng(address);
-    const data = await getWeather(location); // refactor this more what not how
-    await Address.save({
-      address,
-      location
-    });
+    const data = await getLatLng(req.query.address); // refactor this more what not how
     res.status(200).json(data);
   } catch (error) {
-    res.status(500).send("Failing getting weather");
+    res.status(500).send("Failing geocoding");
+  }
+});
+
+app.get("/weather", async (req, res) => {
+  try {
+    if (!req.query.latlng) {
+      const { address } = req.query;
+      const url = `http://${process.env.HOSTNAME}:${process.env.PORT}/geocoding?address=${address}`;
+
+      location = (await axios.get(url)).data;
+
+      await Address.save({
+        address,
+        location
+      });
+    }
+    logger.info("Getting weather for", location);
+    const data = await getWeather(location);
+
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ error, msg: "Failing getting weather" });
   }
 });
 
@@ -59,7 +74,6 @@ app.post("/validateandweather", async (req, res) => {
       `http://${process.env.HOSTNAME}:${process.env.PORT}/validate`,
       req.body
     );
-    console.log("#######", data.valid);
 
     if (data.valid) {
       const { street, streetNumber, town, postalCode, country } = req.body;
