@@ -8,7 +8,7 @@ require("dotenv").config();
 
 const { getWeather, getLatLng } = require("./utils");
 const { check, validationResult } = require("express-validator");
-
+const basePath = `http://${process.env.HOSTNAME}:${process.env.PORT}`;
 const app = express();
 
 app.use(bodyParser.json());
@@ -50,7 +50,7 @@ app.get("/weather", async (req, res) => {
   try {
     if (!req.query.latlng) {
       const { address } = req.query;
-      const url = `http://${process.env.HOSTNAME}:${process.env.PORT}/geocoding?address=${address}`;
+      const url = `${basePath}/geocoding?address=${address}`;
 
       location = (await axios.get(url)).data;
 
@@ -71,7 +71,7 @@ app.get("/weather", async (req, res) => {
 app.post("/validateandweather", async (req, res) => {
   try {
     const { data } = await axios.post(
-      `http://${process.env.HOSTNAME}:${process.env.PORT}/validate`,
+      `${basePath}/validate`,
       req.body
     );
 
@@ -79,7 +79,7 @@ app.post("/validateandweather", async (req, res) => {
       const { street, streetNumber, town, postalCode, country } = req.body;
       const fullAddress = `${streetNumber} ${street},${town},${postalCode},${country}`;
       const { data } = await axios.get(
-        `http://${process.env.HOSTNAME}:${process.env.PORT}/weather?address=${fullAddress}`
+        `${basePath}/weather?address=${fullAddress}`
       );
       res.status(200).json(data);
     }
