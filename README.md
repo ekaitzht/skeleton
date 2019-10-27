@@ -1,6 +1,6 @@
 ### How to run the project
 
-1. Create a .env file. Remember that you need set up your Google Geocoding api key and you email password. You will need to enable Insecure applications to your email accountt https://support.google.com/accounts/answer/6010255
+1. Create a .env file. Remember that you need set up your Google Geocoding api key and you email password. You will need to enable Insecure applications to your email account https://support.google.com/accounts/answer/6010255
 
 ```
 API_KEY=api_key
@@ -19,7 +19,7 @@ EMAIL_TO=ekaitz7@gmail.com
 3. Build docker compose 
 ``` docker-compose build```
 
-4. Run with docker-compose up -d & npm start ( I had to use -d option to dettach the from the output the project I tried to do mongod --fork but it was exiting the parent process and stopping the project). Note: I am using nodemon but in production environment I will use node.
+4. Run with docker-compose up -d & npm start ( I had to use -d option to detach the from the output the project I tried to do mongod --fork but it was exiting the parent process and stopping the project). Note: I am using nodemon but in production environment I will use node.
 
 
 ### APIS:
@@ -29,7 +29,7 @@ Endpoints:
 I created 4 endpoints:
 * POST /validate in the body payload you need to send the address object if it doesn't have the required properties will send 400 error if is valid 200 status code.
 * GET /geocoding?address=[fullAdress] will return [latitude, longitude]
-* GET /weather this endpoint has 2 options if you send address query param  will proceed to call to /geocoding to get the latitude and longitude and then store this information in MongoDB document with [Mongoose](https://github.com/ekaitzht/wefox/blob/master/models/address.js). If you send the address you can send the latitude and longitude and the endpoint won't spend time and 💰to call the Google Geocoding api. This decision has been made to use this endpoint for the batch process to get the weather without doing the geocoding proccess.
+* GET /weather this endpoint has 2 options if you send address query param  will proceed to call to /geocoding to get the latitude and longitude and then store this information in MongoDB document with [Mongoose](https://github.com/ekaitzht/wefox/blob/master/models/address.js). If you send the address you can send the latitude and longitude and the endpoint won't spend time and 💰to call the Google Geocoding api. This decision has been made to use this endpoint for the batch process to get the weather without doing the geocoding proccess.
 * POST /validateandweather this endpoint is like the entry point of the project it will call to /validate to validate the address object is valid and if is valid will get call to /weather endpoint. 
 
 
@@ -39,7 +39,7 @@ First architectural design:
 
 ![github image](https://drive.google.com/uc?id=1Bf1IK3G0DQSVaBt0ZiTeZMvgMLFnRLe6)
 
-The above diagram reflects the intent architecture of the initial plan design. The goal was to have the cron job in his own container. The goal for this it was first better reliability if cron the nodejs fails still the cronjob can still to call to mongodb and continue to request to mongodb to send emails. Sencond if better to have the cronjob containerize to better deployability and bettter Devops practices with CI/CD.
+The above diagram reflects the intent architecture of the initial plan design. The goal was to have the cron job in his own container. The goal for this it was first better reliability if cron the nodejs fails still the cronjob can still to call to mongodb and continue to request to mongodb to send emails. Second if better to have the cronjob containerize to better deployability and bettter Devops practices with CI/CD.
 
 However I am developing with Mac Os X and to call to the host machine from the container can give problems if you are using Linux. for this reason I decided to do the cronjob in the same nodes process than the API. 
 
@@ -49,7 +49,7 @@ Final architectural design:
 
 ### Optional schedule
 
-For this problem I will support multiple users. I will have User class with information related with timeframe, email and  optionally if he wants only to addresses that the user is subscribed. Also we will have another class Notifier that will add a callbacks to each timeframe of each user those callbacks were responsible to send the notifications to the emails of the users.
+For this problem I will support multiple users. I will have User class with information related with timeframe, email and  optionally if he wants only to addresses that the user is subscribed. Also we will have another class Notifier that will add a callbacks to each timeframe of each user those callbacks were responsible to send the notifications to the emails of the users.
 
 ### How to deploy this architecture to AWS
 
@@ -57,7 +57,6 @@ For this problem I will support multiple users. I will have User class with info
 2. Push your code to github this will trigger a CI/CD tool like Jenkins, Travis CI, etc.
 3. The CI/CD tool will build your docker containers and run your unit tests and integration tests.
 4. Open a pull request and review the code with your workmates. 
-5. Merge the pull request if the tests are green the code would be merge to master.
-6. After the this merge to master the CI/CD tool will deploy to AWS. I am omiting that in a production environment we will have QA environment may be preprod environment where more heavy tests will execute like e2e tests, performance testing, etc. Also not mentioning the kind of architeture we want to use in AWS we could use EC2, ELK stack for more scability/flexibilty, or to use a simple AWS Beanstalk server if we don't want a lot control.
-
-
+5. If the tests are green you could merge your branch.
+6. The CI/CD tool will build a production image and pushed to docker registry like Docker Hub.
+7. After the this merge to master the CI/CD AWS will use the image pushed to Docker hub to deploy. I am omitting that in a production environment we will have QA environment may be preprod environment where more heavy tests will execute like e2e tests, performance testing, etc. Also not mentioning the kind of architeture we want to use in AWS we could use EC2, ELK stack for more scability/flexibilty, or to use a simple AWS Beanstalk server if we don't want a lot control.
