@@ -32,8 +32,7 @@ I created 4 endpoints:
 
 ### Architectural design
 
-
-
+First architectural design:
 
 
 
