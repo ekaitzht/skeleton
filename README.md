@@ -62,7 +62,7 @@ Final architectural design:
 
 ### Optional schedule
 
-For this problem I will support multiple users. I will have  User class with timeframe, email and  optionally if he wants only to addresses that the user is subscribed. Also we will have another class Notifier that will add a callbacks to each timeframe of each user those callbacks were responsible to send the notifications to the emails of the users.
+For this problem I will support multiple users. I will have  User class with timeframe, email and  optionally if he wants only to addresses that the user is subscribed. Also we will have another class Notifier that will add a callbacks to each timeframe of each user, those callbacks will be responsible to send the notifications to the emails of the users each time that reach the timeframe.
 
 ### How to deploy this architecture to AWS
 
