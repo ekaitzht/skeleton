@@ -55,8 +55,8 @@ For this problem I will support multiple users. I will have User class with info
 
 1. Develop your code in a feature branch.
 2. Push your code to github this will trigger a CI/CD tool like Jenkins, Travis CI, etc.
-3. The CI/CD tool will build your docker containers and run your unit tests and integration tests.
+3. The CI/CD tool will build your docker containers and run your unit tests and integration tests. Also it could run other tools like SonarQube, security scanners, etc.
 4. Open a pull request and review the code with your workmates. 
 5. If the tests are green you could merge your branch.
-6. The CI/CD tool will build a production image and pushed to docker registry like Docker Hub.
+6. The CI/CD tool will build a production image and pushed to docker registry like Docker Hub. 
 7. After the this merge to master the CI/CD AWS will use the image pushed to Docker hub to deploy. I am omitting that in a production environment we will have QA environment may be preprod environment where more heavy tests will execute like e2e tests, performance testing, etc. Also not mentioning the kind of architeture we want to use in AWS we could use EC2, ELK stack for more scability/flexibilty, or to use a simple AWS Beanstalk server if we don't want a lot control.
