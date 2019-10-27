@@ -36,7 +36,9 @@ First architectural design:
 
 ![github image](https://drive.google.com/uc?id=1Bf1IK3G0DQSVaBt0ZiTeZMvgMLFnRLe6)
 
+Final architectural design:
 
+![github image 2](https://drive.google.com/uc?id=1Bf1IK3G0DQSVaBt0ZiTeZMvgMLFnRLe6)
 
 
 
