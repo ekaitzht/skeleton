@@ -1,0 +1,8 @@
+FROM alpine
+
+RUN apk update && apk add ssmtp && apk add bash
+COPY ./batch-process.sh ./
+RUN chmod 077 batch-process.sh
+CMD ["./batch-process.sh"]
+
+

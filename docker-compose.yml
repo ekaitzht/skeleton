@@ -1,9 +1,14 @@
-version: '3'
+version: "3"
 
 services:
-    mongodb:
-        build:
-            context: .
-        ports:
-            - 27017:27017
-
+  mongodb:
+    build:
+      context: .
+    ports:
+      - 27017:27017
+  cronjob:
+    build:
+      context: .
+      dockerfile: Dockerfile-cron
+    ports:
+      - 27018:27018
