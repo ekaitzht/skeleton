@@ -16,10 +16,16 @@ EMAIL_TO=ekaitz7@gmail.com
 
 ``` npm install```
 
-3. Build docker compose 
+3. Build docker compose
+
 ``` docker-compose build```
 
-4. Run with docker-compose up -d & npm start ( I had to use -d option to detach the from the output the project I tried to do mongod --fork but it was exiting the parent process and stopping the project). Note: I am using nodemon but in production environment I will use node.
+4. Run project with:
+
+```
+docker-compose up -d & npm star
+```
+Note: I had to use -d option to detach process from the stdout, I tried to do mongod --fork but it was exiting the parent process and stopping the mongodb process
 
 
 ### APIS:
