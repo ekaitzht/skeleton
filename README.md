@@ -51,3 +51,7 @@ Final architectural design:
 
 For this problem I will support multiple users. I will have User class with information related with timeframe, email and  optionally if he wants only to addresses that the user is subscribed. Also we will have another class Notifier that will add a callbacks to each timeframe of each user those callbacks were responsible to send the notifications to the emails of the users.
 
+### How to deploy this architecture to AWS
+
+
+
