@@ -8,7 +8,4 @@ services:
       - 27017:27017
   cronjob:
     build:
-      context: .
-      dockerfile: Dockerfile-cron
-    ports:
-      - 27018:27018
+      context: ./cronjob
