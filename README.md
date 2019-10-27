@@ -19,7 +19,7 @@ EMAIL_TO=ekaitz7@gmail.com
 3. Build docker compose 
 ``` docker-compose build```
 
-4. Run with docker-compose up -d & npm start ( I had to use -d option to dettach the from the output the project I tried to do mongod --fork but it was exiting the parent process and stopping the project).
+4. Run with docker-compose up -d & npm start ( I had to use -d option to dettach the from the output the project I tried to do mongod --fork but it was exiting the parent process and stopping the project). Note: I am using nodemon but in production environment I will use node.
 
 
 ### APIS:
