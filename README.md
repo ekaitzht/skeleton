@@ -19,14 +19,24 @@ EMAIL_TO=ekaitz7@gmail.com
 3. Run with docker-compose up -d & npm start ( I had to use -d option to dettach the from the output the project I tried to do mongod --fork but it was exiting the parent process and stopping the project).
 
 
-### Project design:
+### APIS:
 
 Endpoints:
 
 I created 4 endpoints:
 * POST /validate in the body payload you need to send the address object if it doesn't have the required properties will send 400 error if is valid 200 status code.
 * GET /geocoding?address=[fullAdress] will return [latitude, longitude]
-* GET /weather this endpoint has 2 options if you send address query param  will proceed to call to /geocoding to get the latitude and longitude. If you send the address you can send the latitude and longitude and the endpoint won't spend time and 💰to call the Google Geocoding api. This decision has been made to use this endpoint for the batch process to get the weather without doing the geocoding proccess.
+* GET /weather this endpoint has 2 options if you send address query param  will proceed to call to /geocoding to get the latitude and longitude and then store this information in MongoDB document with [Mongoose](https://github.com/ekaitzht/wefox/blob/master/models/address.js). If you send the address you can send the latitude and longitude and the endpoint won't spend time and 💰to call the Google Geocoding api. This decision has been made to use this endpoint for the batch process to get the weather without doing the geocoding proccess.
+* POST /validateandweather this endpoint is like the entry point of the project it will call to /validate to validate the address object is valid and if is valid will get call to /weather endpoint. 
+
+
+### Arquitectural design
+
+
+
+
+
+
 
 
 
