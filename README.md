@@ -1,6 +1,6 @@
 ### How to run the project
 
-1. Create a .env file. Remember that you need set up your Google Geocoding api key and you email password. You will need to enable Insecure applications to your email account https://support.google.com/accounts/answer/6010255
+1. Create a .env file to load the environment variables. Remember that you need set up your Google Geocoding API_KEY and you email PASSWORD. You will need to enable Insecure applications to your email account https://support.google.com/accounts/answer/6010255
 
 ```
 API_KEY=api_key
@@ -24,7 +24,7 @@ EMAIL_TO=ekaitz7@gmail.com
 
 ```docker-compose up -d & npm start```
 
-Note: I had to use -d option to detach process from the stdout, I tried to do mongod --fork but it was exiting the parent process and stopping the mongodb process
+Note: I had to use -d option to detach process from the stdout, I tried to do mongod --fork but it was exiting the parent process and stopping the mongodb process.
 
 
 ### APIS:
@@ -32,11 +32,19 @@ Note: I had to use -d option to detach process from the stdout, I tried to do mo
 Endpoints:
 
 I created 4 endpoints:
-* POST /validate in the body payload you need to send the address object if it doesn't have the required properties will send 400 error if is valid 200 status code.
-* GET /geocoding?address=[fullAdress] will return [latitude, longitude]
-* GET /weather this endpoint has 2 options if you send address query param  will proceed to call to /geocoding to get the latitude and longitude and then store this information in MongoDB document with [Mongoose](https://github.com/ekaitzht/wefox/blob/master/models/address.js). If you send the address you can send the latitude and longitude and the endpoint won't spend time and 💰to call the Google Geocoding api. This decision has been made to use this endpoint for the batch process to get the weather without doing the geocoding proccess.
-* POST /validateandweather this endpoint is like the entry point of the project it will call to /validate to validate the address object is valid and if is valid will get call to /weather endpoint. 
+* POST /validate in the body payload you need to send the address object if it doesn't have the required properties will send back 400 error, and if it is valid 200 status code.
+* GET /geocoding?address=[fullAdress] will return [latitude, longitude] this endpoint will call to Google Geocoding API
+* GET /weather this endpoint has 2 options if you send address query param  will proceed to call to /geocoding endpoint to get the latitude and longitude and then store this information (address+location) in a MongoDB document with [Mongoose](https://github.com/ekaitzht/wefox/blob/master/models/address.js). If you send the address you can send the latitude and longitude and the endpoint won't spend time and 💰to call the Google Geocoding api. This decision has been made to use this endpoint for the batch process to get the weather without doing the geocoding proccess.
+* POST /validateandweather this endpoint is the entry point of the project it will call to /validate to validate the address object if it is valid will get call to /weather endpoint. 
 
+Here I leave some curl requests to the API:
+
+```
+curl -X POST http://localhost:3000/validateandweather --header "Content-Type: application/json" -d '{"street":"Glandore Road","streetNumber":"9","town":"Dublin","postalCode":"D9","country":"Ireland"}'
+```
+```
+curl http://localhost:3000/weather?address=%22Calle%20Cortes%20de%20Navarra,3,Pamplona,Navarra,%20Spain%22
+```
 
 ### Architectural design
 
