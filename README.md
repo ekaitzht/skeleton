@@ -36,6 +36,10 @@ First architectural design:
 
 ![github image](https://drive.google.com/uc?id=1Bf1IK3G0DQSVaBt0ZiTeZMvgMLFnRLe6)
 
+The above diagram reflects the intent architecture of the initial plan design. The goal was to have the cron job in his own container. The goal for this it was first better reliability if cron the nodejs fails still the cronjob can still to call to mongodb and continue to request to mongodb to send emails. Sencond if better to have the cronjob containerize to better deployability and bettter Devops practices with CI/CD.
+
+However I am developing with Mac Os X and to call to the host machine from the container can give problems if you are using Linux. for this reason I decided to do the cronjob in the same nodes process than the API. 
+
 Final architectural design:
 
 ![github image 2](https://drive.google.com/uc?id=1Z76hh5SrhQQDIA5ozmUqXXN0Gq6Zd3l_)
