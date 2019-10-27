@@ -30,7 +30,7 @@ I created 4 endpoints:
 * POST /validateandweather this endpoint is like the entry point of the project it will call to /validate to validate the address object is valid and if is valid will get call to /weather endpoint. 
 
 
-### Arquitectural design
+### Architectural design
 
 
 
