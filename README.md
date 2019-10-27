@@ -38,7 +38,7 @@ First architectural design:
 
 Final architectural design:
 
-![github image 2](https://drive.google.com/uc?id=1Bf1IK3G0DQSVaBt0ZiTeZMvgMLFnRLe6)
+![github image 2](https://drive.google.com/uc?id=1Z76hh5SrhQQDIA5ozmUqXXN0Gq6Zd3l_)
 
 
 
