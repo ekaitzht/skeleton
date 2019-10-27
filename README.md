@@ -53,11 +53,11 @@ For this problem I will support multiple users. I will have User class with info
 
 ### How to deploy this architecture to AWS
 
-1. Develop your coda in a feature branch.
-2. Push your code to github this trigger a CI/CD tool like Jenkins, Travis CI, etc.
-3. Travis CI will build your docker containers and run your unit tests and integration tests.
+1. Develop your code in a feature branch.
+2. Push your code to github this will trigger a CI/CD tool like Jenkins, Travis CI, etc.
+3. The CI/CD tool will build your docker containers and run your unit tests and integration tests.
 4. Open a pull request and review the code with your workmates. 
-5. Merge the pull request this will triger again CI/CD tool and it passes will merge the code to master.
-6. After the this merge to master the CI/CD tool will deploy to AWS. I am omiting that in a production environment we will have QA environment may be preprod environment where more heavy tests will execute like e2e tests, performance testing, etc. Also not mention the kind of architeture we want to use in AWS we could EC2, ELK stack for more scability, or simple AWS Beanstalk if we don't want a lot control and to deploy quick.
+5. Merge the pull request if the tests are green the code would be merge to master.
+6. After the this merge to master the CI/CD tool will deploy to AWS. I am omiting that in a production environment we will have QA environment may be preprod environment where more heavy tests will execute like e2e tests, performance testing, etc. Also not mentioning the kind of architeture we want to use in AWS we could use EC2, ELK stack for more scability/flexibilty, or to use a simple AWS Beanstalk server if we don't want a lot control.
 
 
