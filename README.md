@@ -1,7 +1,6 @@
 ### How to run the project
 
-1. Setup .env file
-Create a .env file like this one:
+1. Create a .env file. Remember that you need set up your Google Geocoding api key and you email password. You will need to enable Insecure applications to your email accountt https://support.google.com/accounts/answer/6010255
 
 ```
 API_KEY=api_key
@@ -13,4 +12,10 @@ PASSWORD=password
 EMAIL_TO=ekaitz7@gmail.com
 ```
 
-Run with docker-compose up -d & npm start
+2. Install your node packages
+
+``` npm install```
+
+3. Run with docker-compose up -d & npm start ( I had to use -d option to dettach the from the output the project I tried to do mongod --fork but it was exiting the parent process and stopping the project).
+
+
