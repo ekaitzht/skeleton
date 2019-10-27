@@ -1,6 +1,6 @@
 ### How to run the project
 
-1. Create a .env file to load the environment variables. Remember that you need set up your Google Geocoding API_KEY and you email PASSWORD. You will need to enable Insecure applications to your email account https://support.google.com/accounts/answer/6010255
+1. Create a .env file to load the environment variables. Remember that you need set up your Google Geocoding API_KEY and you email PASSWORD. Also you will need to enable insecure applications to your email account https://support.google.com/accounts/answer/6010255
 
 ```
 API_KEY=api_key
