@@ -31,7 +31,7 @@ Note: I had to use -d option to detach the process from the stdout, I tried to d
 ### APIS:
 
 
-#I implemented 4 endpoints:
+# I implemented 4 endpoints:
 
 * `POST /validate` this request receives a body payload with address and checks if it’s valid. If the address is valid, it sends back a 200 error, if not, it sends back a 400 error.
 * `GET /geocoding?address=[fullAdress]` will return `[latitude, longitude]`. This endpoint will call Google Geocoding API.
@@ -43,7 +43,7 @@ Second option sends directly lat & lng to the endpoint. The endpoint won’t spe
 
 * `POST /validateandweather` this endpoint is the entry point of the project. It will call to `/validate` to validate the address object.  If it is valid, it will call to `/weather` endpoint. 
 
-#Below you have 2 curl requests to the API  to use it to try the endpoints:
+# Below you have 2 curl requests to the API  to use it to try the endpoints:
 
 ```
 curl -X POST http://localhost:3000/validateandweather --header "Content-Type: application/json" -d '{"street":"Glandore Road","streetNumber":"9","town":"Dublin","postalCode":"D9","country":"Ireland"}'
