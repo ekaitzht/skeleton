@@ -28,7 +28,7 @@ EMAIL_TO=ekaitz7@gmail.com
 Note: I had to use -d option to detach the process from the stdout, I tried to do mongod --fork but it was exiting the parent process and stopping the MongoDB process.
 
 
-### APIS:
+# APIS:
 
 
 # I implemented 4 endpoints:
